@@ -1,0 +1,39 @@
+targets:
+  $default:
+    builders:
+      karee_injectable_gen|karee_inject:
+        enabled: true
+
+builders:
+  autowiredBuilder:
+    target: ":karee_injectable_gen"
+    import: "package:karee_injectable_gen/karee_injectable_gen.dart"
+    builder_factories: ["autowiredBuilder"]
+    build_extensions: {".dart": [".core.autowired.dart"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
+  serviceBuilder:
+    target: ":karee_injectable_gen"
+    import: "package:karee_injectable_gen/karee_injectable_gen.dart"
+    builder_factories: ["serviceBuilder"]
+    build_extensions: {".dart": [".core.service.dart"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
+  valueBuilder:
+    target: ":karee_injectable_gen"
+    import: "package:karee_injectable_gen/karee_injectable_gen.dart"
+    builder_factories: ["valueBuilder"]
+    build_extensions: {".dart": [".core.value.dart"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
+  persistableBuilder:
+    target: ":karee_injectable_gen"
+    import: "package:karee_injectable_gen/karee_injectable_gen.dart"
+    builder_factories: ["persistableBuilder"]
+    build_extensions: {".dart": [".core.persistable.dart"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
