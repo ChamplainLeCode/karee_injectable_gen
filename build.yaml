@@ -5,6 +5,14 @@ targets:
         enabled: true
 
 builders:
+  screen_tracker:
+    target: ":karee_injectable_gen"
+    import: "package:karee_injectable_gen/karee_injectable_gen.dart"
+    builder_factories: ["screenBuilder"]
+    build_extensions: {".dart": [".core.screen.dart"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
   autowiredBuilder:
     target: ":karee_injectable_gen"
     import: "package:karee_injectable_gen/karee_injectable_gen.dart"

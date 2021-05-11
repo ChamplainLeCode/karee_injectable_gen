@@ -1,0 +1,29 @@
+server:
+  proxy:
+    domain: api.bixterprise.com
+    protocole: https
+    service: /api/v2
+    port: 80
+    url: '@{server.proxy.protocole}://@{server.proxy.domain}@{server.proxy.service}'
+
+
+pageable:
+  default:
+    pageSize: 30
+    index: 1
+    paginated: false
+
+security:
+  instant: 12/02/2020
+  authorization:
+    authorities:
+      - ACCOUNTABLE
+      - ADMIN
+      - ADMIN_MANAGER
+      - ADMIN_SECURITY
+      - COMMON_USER
+      - CONNECTED_USER
+      - MANAGER_USER
+      - RH
+    username: admin
+    password: admin
