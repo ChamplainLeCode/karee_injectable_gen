@@ -63,6 +63,7 @@ class VisitableElement extends SimpleElementVisitor {
       constructors[element.displayName] = constructor;
       constructors['${param.hashCode}'] = {
         'declaration': {
+          'isNamed': param.isNamed,
           'type': param.declaration.type.toString() + '\n',
           'name': param.declaration.name + '\n',
           'kind.name': param.declaration.kind.name + '\n',
@@ -70,7 +71,7 @@ class VisitableElement extends SimpleElementVisitor {
           'isOptional': '${param.declaration.isOptional}\n',
           'defaultValue': '${param.declaration.defaultValueCode}\n'
         },
-        'hisParams': param.typeParameters.map((e) => e.runtimeType).toList().toString() + '\n',
+        'hisParamss': param.typeParameters.map((e) => e.runtimeType).toList().toString() + '\n',
         'meta': param.metadata.map((e) => e.element?.displayName).toList().toString() + '\n'
       };
     });

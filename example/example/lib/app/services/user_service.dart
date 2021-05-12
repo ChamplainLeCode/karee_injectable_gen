@@ -1,6 +1,6 @@
 import 'package:example/app/entities/pageable.dart';
 import 'package:example/app/services/other_service.dart';
-import 'package:flutter/painting.dart';
+import 'package:example/app/services/parameter_service.dart';
 import 'package:karee_inject/karee_inject.dart';
 import '../entities/user.dart';
 
@@ -23,6 +23,9 @@ class UserService {
 
   @Autowired
   late final OtherService otherService;
+
+  @Autowired
+  late final ParameterService parameterService;
 
   Future<Page<User>> getUsers([Pageable? pageInfo]) async {
     pageInfo ??= Pageable.fromSize(pageSize);

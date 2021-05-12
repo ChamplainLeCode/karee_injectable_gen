@@ -49,11 +49,11 @@ void initCore() {
   print('Initialisation started');
   WidgetsFlutterBinding.ensureInitialized();
   initializeReflectable();
-  loadAppConfig(rootBundle.loadString('resources/config/application.yaml')).then((value) {
+  loadAppConfig().then((value) {
     return extensions
       ..forEach((key, value) {
         try {
-          print(value().test());
+          value().test();
         } catch (e, st) {
           print('#######"" error = $e');
           print(st);
