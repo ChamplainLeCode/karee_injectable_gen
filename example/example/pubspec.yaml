@@ -29,8 +29,9 @@ dependencies:
    karee_core: #// 2.0.0
       path: ../../../karee_core
    url_launcher: ^6.0.0
-   karee_inject:
-      path: ../../../karee_inject
+   reflectable: ^3.0.1
+   # karee_inject:
+   #    path: ../../../karee_inject
 
 dev_dependencies:
    flutter_test:
@@ -41,7 +42,6 @@ dev_dependencies:
 #
 # Karee additional dependencies
 # 
-   reflectable: 3.0.1
    build_runner: any
    build: ^2.0.0
    source_gen: 1.0.0

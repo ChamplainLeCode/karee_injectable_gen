@@ -8,16 +8,16 @@ import 'core/core.dart' show KareeMaterialApp, initCore, KareeInstanceProfile, E
 /// @Github ChamplainLeCode
 ///
 
-void main() {
+void main() async {
   // Do not modify
-  initCore();
+  await initCore();
   runApp(MyKareeApp());
 
   //! Add your custom configurations
   ///
   /// To stuck your app in portrait
   ///
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitDown, DeviceOrientation.portraitUp]);
 }
 
 class MyKareeApp extends StatelessWidget {
@@ -30,7 +30,7 @@ class MyKareeApp extends StatelessWidget {
         /// This is the profile of your application on production
         /// replace KareeInstanceProfile.production by KareeInstanceProfile.development
         /// during development, to better manage error in your application
-        profile: KareeInstanceProfile.production,
+        profile: KareeInstanceProfile.development,
 
         /// When you are going to release your application, you need to turn
         /// your application profile to production and setup the error contact.

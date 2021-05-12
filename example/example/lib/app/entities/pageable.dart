@@ -8,5 +8,13 @@ class Pageable {
 }
 
 class Page<T> {
-  Page.empty();
+  List<T> content;
+
+  Page.fromList(List<T> l) : content = l;
+  Page.empty() : content = [];
+
+  @override
+  String toString() {
+    return content.toString();
+  }
 }

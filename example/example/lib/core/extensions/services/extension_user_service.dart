@@ -1,4 +1,4 @@
-import '../extensions.dart';
+import '../extensions_services.dart';
 import 'package:karee_core/karee_core.dart';
 import 'package:example/app/services/user_service.dart';
 
@@ -15,8 +15,8 @@ extension UserServiceExtension on UserService {
 		password = readConfig('@{security.authorization.password}');
 		UserServiceExtension.service = this;
 		UserServiceExtension.loaded = true;
-		otherService = extensions['OtherService']();
-		parameterService = extensions['ParameterService']();
+		otherService = serviceExtensions['OtherService']();
+		parameterService = serviceExtensions['ParameterService']();
 	}
 	UserService get self {
 		init();

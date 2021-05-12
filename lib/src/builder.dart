@@ -6,6 +6,7 @@ import 'package:analyzer/dart/element/visitor.dart';
 import 'package:analyzer/dart/element/type.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'generators/autowired_generator.dart';
+import 'generators/controller_builder.dart';
 import 'generators/persistable_generator.dart';
 import 'generators/screen_generator.dart';
 import 'generators/service_generator.dart';
@@ -16,6 +17,9 @@ Builder autowiredBuilder(BuilderOptions options) =>
 
 Builder serviceBuilder(BuilderOptions options) =>
     SharedPartBuilder([ServiceGenerator()], 'services', formatOutput: buildFormatOutput);
+
+Builder controllerBuilder(BuilderOptions options) =>
+    SharedPartBuilder([ControllerGenerator()], 'controllers', formatOutput: buildFormatOutput);
 
 Builder valueBuilder(BuilderOptions options) =>
     SharedPartBuilder([ValueGenerator()], 'values', formatOutput: buildFormatOutput);
@@ -40,7 +44,7 @@ $typeId
 class VisitableElement extends SimpleElementVisitor {
   late DartType className;
   late String uri;
-  late String? meta;
+  String? meta;
   List<Field> fields = <Field>[];
   List metaData = [];
   Map<String, dynamic> constructors = {};

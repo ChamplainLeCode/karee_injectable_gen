@@ -1,4 +1,4 @@
-import '../extensions.dart';
+import '../extensions_services.dart';
 import 'package:karee_core/karee_core.dart';
 import 'package:example/app/services/parameter_service.dart';
 
@@ -11,8 +11,8 @@ extension ParameterServiceExtension on ParameterService {
 		roles = List.from(readConfig('@{security.authorization.authorities}'));
 		ParameterServiceExtension.service = this;
 		ParameterServiceExtension.loaded = true;
-		userService = extensions['UserService']();
-		otherService = extensions['OtherService']();
+		userService = serviceExtensions['UserService']();
+		otherService = serviceExtensions['OtherService']();
 	}
 	ParameterService get self {
 		init();

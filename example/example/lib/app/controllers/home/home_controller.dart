@@ -1,3 +1,5 @@
+import 'package:example/app/services/other_service.dart';
+import 'package:example/app/services/parameter_service.dart';
 import 'package:karee_core/karee_core.dart' show Autowired, Controller, RouteMode, screen;
 import '../../services/user_service.dart';
 
@@ -12,9 +14,16 @@ class HomeController {
   @Autowired
   late UserService userService;
 
-  dynamic index() {
+  @Autowired
+  late OtherService otherService;
+
+  @Autowired
+  late ParameterService parameterService;
+
+  void index() {
     /// Get the first page of users
     var page = userService.getUsers();
+
     screen('home', RouteMode.REPLACE, parameter: page);
   }
 }

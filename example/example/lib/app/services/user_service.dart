@@ -31,8 +31,23 @@ class UserService {
     pageInfo ??= Pageable.fromSize(pageSize);
 
     /// TODO: fetch data for pageRequest
-
-    return Page.empty();
+    return Page.fromList([
+      User()
+        ..id = 1
+        ..name = 'Champlain',
+      User()
+        ..id = 2
+        ..name = 'Marius',
+      User()
+        ..id = 3
+        ..name = 'Manuel',
+      User()
+        ..id = 4
+        ..name = 'Fanseu',
+      User()
+        ..id = 5
+        ..name = 'Andrielle',
+    ]);
   }
 
   void test() {

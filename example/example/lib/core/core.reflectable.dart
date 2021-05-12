@@ -4,7 +4,8 @@
 
 import 'dart:core';
 import 'package:example/app/controllers/home/home_controller.dart' as prefix1;
-import 'package:karee_core/src/controllers/controller.dart' as prefix0;
+import 'package:example/app/controllers/users/user_constroller.dart' as prefix2;
+import 'package:karee_inject/src/annotations/controller.dart' as prefix0;
 
 // ignore_for_file: prefer_adjacent_string_concatenation
 // ignore_for_file: prefer_collection_literals
@@ -46,13 +47,45 @@ final _data = <r.Reflectable, r.ReflectorData>{
               r'runtimeType': 0,
               r'index': 0,
               r'userService': 0,
+              r'userService=': 1,
+              r'otherService': 0,
+              r'otherService=': 1,
+              r'parameterService': 0,
+              r'parameterService=': 1
+            }),
+        r.NonGenericClassMirrorImpl(
+            r'UserController',
+            r'.UserController',
+            7,
+            1,
+            const prefix0.ControllerReflectable(),
+            const <int>[-1],
+            null,
+            null,
+            -1,
+            {},
+            {},
+            {r'': (bool b) => () => b ? prefix2.UserController() : null},
+            -1,
+            -1,
+            const <int>[-1],
+            null,
+            {
+              r'==': 1,
+              r'toString': 0,
+              r'noSuchMethod': 1,
+              r'hashCode': 0,
+              r'runtimeType': 0,
+              r'home': 1,
+              r'filter': 1,
+              r'userService': 0,
               r'userService=': 1
             })
       ],
       null,
       null,
-      <Type>[prefix1.HomeController],
-      1,
+      <Type>[prefix1.HomeController, prefix2.UserController],
+      2,
       {
         r'==': (dynamic instance) => (x) => instance == x,
         r'toString': (dynamic instance) => instance.toString,
@@ -60,11 +93,19 @@ final _data = <r.Reflectable, r.ReflectorData>{
         r'hashCode': (dynamic instance) => instance.hashCode,
         r'runtimeType': (dynamic instance) => instance.runtimeType,
         r'index': (dynamic instance) => instance.index,
-        r'userService': (dynamic instance) => instance.userService
+        r'userService': (dynamic instance) => instance.userService,
+        r'otherService': (dynamic instance) => instance.otherService,
+        r'parameterService': (dynamic instance) => instance.parameterService,
+        r'home': (dynamic instance) => instance.home,
+        r'filter': (dynamic instance) => instance.filter
       },
       {
         r'userService=': (dynamic instance, value) =>
-            instance.userService = value
+            instance.userService = value,
+        r'otherService=': (dynamic instance, value) =>
+            instance.otherService = value,
+        r'parameterService=': (dynamic instance, value) =>
+            instance.parameterService = value
       },
       null,
       [

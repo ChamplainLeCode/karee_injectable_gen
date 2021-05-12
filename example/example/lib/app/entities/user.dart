@@ -4,4 +4,7 @@ import 'package:karee_inject/karee_inject.dart' show Persistable;
 class User {
   double? id;
   String? name;
+
+  @override
+  String toString() => {'id': id, 'name': name}.toString();
 }

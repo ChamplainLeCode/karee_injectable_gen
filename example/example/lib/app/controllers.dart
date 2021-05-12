@@ -5,6 +5,6 @@ import './controllers/home/home_controller.dart';
  * @github ChamplainLeCode
  * 
  */
-List<dynamic> controllers = [
-  HomeController(),
-];
+// List<dynamic> controllers = [
+//   HomeController(),
+// ];
