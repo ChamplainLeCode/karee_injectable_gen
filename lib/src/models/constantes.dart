@@ -7,4 +7,4 @@ const String kServiceExtensionFilePath = '$kMainExtensionDirPath/$kServiceExtens
 const String kControllerExtensionDirPath = 'controllers';
 const String kControllerExtensionFileName = 'extensions_controllers.dart';
 const String kControllerExtensionFilePath = '$kMainExtensionDirPath/$kControllerExtensionFileName';
-const String kKareeCorePackage = 'package:karee_core/karee_core.dart';
+const String kKareeCorePackage = 'package:karee_core/core.dart';

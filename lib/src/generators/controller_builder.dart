@@ -13,26 +13,33 @@ import 'package:karee_inject/karee_inject.dart' show ControllerReflectable;
 import '../builder.dart' show VisitableElement;
 
 class ControllerGenerator extends GeneratorForAnnotation<ControllerReflectable> {
-  List<ServiceExtension> extensions = [];
+  Set<ServiceExtension> extensions = {};
 
   @override
   void generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) {
-    print('\n\n\n#### GENERATOR FOR Controller ----- begin\n\n\n');
-    print({
-      #name: element.declaration?.name,
-      #uri: element.source?.uri.toString(),
-      #file: element.declaration?.getDisplayString(withNullability: false)
-    });
-
+    // print('\n\n\n#### GENERATOR FOR Controller ----- begin\n\n\n');
+    // print({
+    //   #name: element.declaration?.name,
+    //   #uri: element.source?.uri.toString(),
+    //   #file: element.declaration?.getDisplayString(withNullability: false)
+    // });
+    // var dir = Directory('$kMainExtensionDirPath/$kControllerExtensionDirPath');
+    // var file = File('$kControllerExtensionFilePath');
+    // if (dir.existsSync()) {
+    //   dir.deleteSync(recursive: true);
+    // }
+    // if (file.existsSync()) {
+    //   file.deleteSync(recursive: true);
+    // }
     var visitor = VisitableElement();
     element.visitChildren(visitor);
-    print('\n~~~~~~~~~~~~~ Controller << ${visitor.className} ~~~~~~~~~');
-    print('\n## fields: ${visitor.fields.map((e) => e.toString())}\n');
-    print('\n## constr: ${visitor.constructors}');
-    print('\n## uri   : ${visitor.uri}');
-    print('\n## meta  : ${visitor.meta} metaData = ${visitor.metaData}');
+    // print('\n~~~~~~~~~~~~~ Controller << ${visitor.className} ~~~~~~~~~');
+    // print('\n## fields: ${visitor.fields.map((e) => e.toString())}\n');
+    // print('\n## constr: ${visitor.constructors}');
+    // print('\n## uri   : ${visitor.uri}');
+    // print('\n## meta  : ${visitor.meta} metaData = ${visitor.metaData}');
 
-    print('\n\n\n#### GENERATOR FOR Controller ----- end\n\n\n');
+    // print('\n\n\n#### GENERATOR FOR Controller ----- end\n\n\n');
 
     FieldValidator.validateMultipleFields(visitor.fields);
 
@@ -46,10 +53,21 @@ class ControllerGenerator extends GeneratorForAnnotation<ControllerReflectable> 
   }
 
   void writeExtensionIndex(ServiceExtension ext) {
+    if (extensions.where((e) => e == ext).isNotEmpty) {
+      return;
+    }
+
     extensions.add(ext);
+    var dir = Directory('$kMainExtensionDirPath/$kControllerExtensionDirPath');
+    var file = File('$kControllerExtensionFilePath');
+    if (dir.existsSync()) {
+      dir.deleteSync(recursive: true);
+    }
+    if (file.existsSync()) {
+      file.deleteSync(recursive: true);
+    }
 
-    Directory(kMainExtensionDirPath).createSync(recursive: true);
-
+    Directory('$kMainExtensionDirPath').createSync(recursive: true);
     Directory('$kMainExtensionDirPath/$kControllerExtensionDirPath').createSync(recursive: true);
 
     var f = File(kControllerExtensionFilePath);

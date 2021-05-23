@@ -13,7 +13,7 @@ import 'package:karee_inject/karee_inject.dart' show ServiceAnnotation;
 import '../builder.dart' show VisitableElement;
 
 class ServiceGenerator extends GeneratorForAnnotation<ServiceAnnotation> {
-  List<ServiceExtension> extensions = [];
+  Set<ServiceExtension> extensions = {};
 
   @override
   void generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) {
@@ -23,7 +23,6 @@ class ServiceGenerator extends GeneratorForAnnotation<ServiceAnnotation> {
     //   #uri: element.source?.uri.toString(),
     //   #file: element.declaration?.getDisplayString(withNullability: false)
     // });
-
     var visitor = VisitableElement();
     element.visitChildren(visitor);
 
@@ -39,8 +38,19 @@ class ServiceGenerator extends GeneratorForAnnotation<ServiceAnnotation> {
   }
 
   void writeExtensionIndex(ServiceExtension ext) {
+    if (extensions.where((e) => e == ext).isNotEmpty) {
+      return;
+    }
     extensions.add(ext);
 
+    var dir = Directory('$kMainExtensionDirPath/$kServiceExtensionDirPath');
+    var file = File('$kServiceExtensionFilePath');
+    if (dir.existsSync()) {
+      dir.deleteSync(recursive: true);
+    }
+    if (file.existsSync()) {
+      file.deleteSync(recursive: true);
+    }
     Directory(kMainExtensionDirPath).createSync(recursive: true);
     Directory('$kMainExtensionDirPath/$kServiceExtensionDirPath').createSync(recursive: true);
     var f = File(kServiceExtensionFilePath);
