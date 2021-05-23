@@ -17,15 +17,14 @@ class ScreenGenerator extends GeneratorForAnnotation<Screen> {
   @override
   dynamic generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) {
     var source = element.metadata[0].toSource();
-    var sh = element.source?.shortName, ex = buildStep.inputId.extension;
 
     var annotation = element.metadata.first.computeConstantValue();
-
+    // print('\n######### SCREEN CLASS NAME = "${element.declaration?.name ?? ''}"');
     generatedScreens.putIfAbsent(
         source.substring(source.indexOf('\'') + 1, source.lastIndexOf('\'')),
         () => {
               #uri: element.source?.uri.toString(),
-              #className: '${underscoreToCambel(sh!.replaceAll(ex, ''))}()',
+              #className: '${element.declaration?.name ?? ''}()',
               #initial: annotation?.getField('isInitial')?.toBoolValue()
             });
     writeMap();
@@ -68,9 +67,8 @@ class ScreenGenerator extends GeneratorForAnnotation<Screen> {
 Map<String, Map<Symbol, dynamic>> generatedScreens = {};
 
 void writeMap() async {
-  var f = File('lib/app/screens.dart');
-  var content =
-      '''\n/*\n *\t\n@Author Champlain Marius Bakop\n@Email champlainmarius20@gmail.com\n@github ChamplainLeCode */\n\n\nList<Map<Symbol, dynamic>> screens = [\n''';
+  var f = File('lib/core/screens.dart');
+  var content = '''\n\n/// Generated buy Karee\n///\n///Do not modify\n\nList<Map<Symbol, dynamic>> screens = [\n''';
   generatedScreens.forEach((String annotation, Map<Symbol, dynamic> data) {
     if (data[#initial]) {
       content =

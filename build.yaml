@@ -29,6 +29,14 @@ builders:
     auto_apply: dependents
     build_to: cache
     applies_builders: ["source_gen|combining_builder"]
+  controllerBuilder:
+    target: ":karee_injectable_gen"
+    import: "package:karee_injectable_gen/karee_injectable_gen.dart"
+    builder_factories: ["controllerBuilder"]
+    build_extensions: {".dart": [".core.controller.dart"]}
+    auto_apply: dependents
+    build_to: cache
+    applies_builders: ["source_gen|combining_builder"]
   valueBuilder:
     target: ":karee_injectable_gen"
     import: "package:karee_injectable_gen/karee_injectable_gen.dart"
