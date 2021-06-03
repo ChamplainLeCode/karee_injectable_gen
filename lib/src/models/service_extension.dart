@@ -28,7 +28,8 @@ class ServiceExtension {
 
   @override
   bool operator ==(Object other) {
-    var test = (other is ServiceExtension) && serviceClassName == other.serviceClassName;
+    var test = (other is ServiceExtension) &&
+        serviceClassName == other.serviceClassName;
     // print('Comparing \n\t<[$this]>\n##### TO ###\n\t<[$other]>\n\tResult = $test');
     return test;
   }

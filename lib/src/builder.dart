@@ -13,19 +13,24 @@ import 'generators/service_generator.dart';
 import 'generators/value_generator.dart';
 
 Builder autowiredBuilder(BuilderOptions options) =>
-    SharedPartBuilder([AutowiredGenerator()], 'autowired', formatOutput: buildFormatOutput);
+    SharedPartBuilder([AutowiredGenerator()], 'autowired',
+        formatOutput: buildFormatOutput);
 
 Builder serviceBuilder(BuilderOptions options) =>
-    SharedPartBuilder([ServiceGenerator()], 'services', formatOutput: buildFormatOutput);
+    SharedPartBuilder([ServiceGenerator()], 'services',
+        formatOutput: buildFormatOutput);
 
 Builder controllerBuilder(BuilderOptions options) =>
-    SharedPartBuilder([ControllerGenerator()], 'controllers', formatOutput: buildFormatOutput);
+    SharedPartBuilder([ControllerGenerator()], 'controllers',
+        formatOutput: buildFormatOutput);
 
 Builder valueBuilder(BuilderOptions options) =>
-    SharedPartBuilder([ValueGenerator()], 'values', formatOutput: buildFormatOutput);
+    SharedPartBuilder([ValueGenerator()], 'values',
+        formatOutput: buildFormatOutput);
 
 Builder persistableBuilder(BuilderOptions options) =>
-    SharedPartBuilder([PersistableGenerator()], 'persistable', formatOutput: buildFormatOutput);
+    SharedPartBuilder([PersistableGenerator()], 'persistable',
+        formatOutput: buildFormatOutput);
 
 Builder screenBuilder(BuilderOptions options) {
   var builder = SharedPartBuilder([ScreenGenerator()], 'screen');
@@ -54,13 +59,15 @@ class VisitableElement extends SimpleElementVisitor {
     className = element.type.returnType;
     uri = element.source.uri.toString();
     try {
-      meta = element.metadata.first.computeConstantValue.call()?.type.toString();
+      meta =
+          element.metadata.first.computeConstantValue.call()?.type.toString();
     } catch (e) {
       ;
     }
 
     metaData = element.metadata
-        .map((e) => MapEntry(e.computeConstantValue()?.toStringValue(), e.computeConstantValue()?.type))
+        .map((e) => MapEntry(e.computeConstantValue()?.toStringValue(),
+            e.computeConstantValue()?.type))
         .toList();
     element.parameters.forEach((param) {
       var constructor = (constructors[element.displayName] ?? {});
@@ -75,8 +82,14 @@ class VisitableElement extends SimpleElementVisitor {
           'isOptional': '${param.declaration.isOptional}\n',
           'defaultValue': '${param.declaration.defaultValueCode}\n'
         },
-        'hisParamss': param.typeParameters.map((e) => e.runtimeType).toList().toString() + '\n',
-        'meta': param.metadata.map((e) => e.element?.displayName).toList().toString() + '\n'
+        'hisParamss':
+            param.typeParameters.map((e) => e.runtimeType).toList().toString() +
+                '\n',
+        'meta': param.metadata
+                .map((e) => e.element?.displayName)
+                .toList()
+                .toString() +
+            '\n'
       };
     });
   }
@@ -96,11 +109,18 @@ class VisitableElement extends SimpleElementVisitor {
         uri: element.source?.uri.toString() ?? '',
         name: element.name,
         type: element.type.getDisplayString(withNullability: false),
-        value: (annotation?.computeConstantValue()).toString().contains((Value).toString())
-            ? annotation?.computeConstantValue()?.getField('name')?.toStringValue()
+        value: (annotation?.computeConstantValue())
+                .toString()
+                .contains((Value).toString())
+            ? annotation
+                ?.computeConstantValue()
+                ?.getField('name')
+                ?.toStringValue()
             : null,
         injectable: reflect.isNotEmpty
-            ? (annotation?.computeConstantValue()?.type ?? '').toString().contains((AutowiredAnnotation).toString())
+            ? (annotation?.computeConstantValue()?.type ?? '')
+                .toString()
+                .contains((AutowiredAnnotation).toString())
             : false,
         isPublic: element.isPublic));
   }

@@ -15,5 +15,6 @@ class Field {
       required this.isPublic});
 
   @override
-  String toString() => {name, type, value, uri, injectable, isPublic}.toString();
+  String toString() =>
+      {name, type, value, uri, injectable, isPublic}.toString();
 }

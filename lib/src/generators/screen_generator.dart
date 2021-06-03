@@ -15,7 +15,8 @@ import 'package:source_gen/source_gen.dart';
 ///ScreenGenerator for Karee core Screen
 class ScreenGenerator extends GeneratorForAnnotation<Screen> {
   @override
-  dynamic generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) {
+  dynamic generateForAnnotatedElement(
+      Element element, ConstantReader annotation, BuildStep buildStep) {
     var source = element.metadata[0].toSource();
 
     var annotation = element.metadata.first.computeConstantValue();
@@ -49,7 +50,8 @@ class ScreenGenerator extends GeneratorForAnnotation<Screen> {
       var char = name[index];
       char = index == 0 && !isUpper(char) ? char.toUpperCase() : char;
       if (char == '_') {
-        response = response + (index + 1 < name.length ? name[index + 1].toUpperCase() : '');
+        response = response +
+            (index + 1 < name.length ? name[index + 1].toUpperCase() : '');
         index++;
       } else {
         response = response + char;
@@ -68,13 +70,15 @@ Map<String, Map<Symbol, dynamic>> generatedScreens = {};
 
 void writeMap() async {
   var f = File('lib/core/screens.dart');
-  var content = '''\n\n/// Generated buy Karee\n///\n///Do not modify\n\nList<Map<Symbol, dynamic>> screens = [\n''';
+  var content =
+      '''\n\n/// Generated buy Karee\n///\n///Do not modify\n\nList<Map<Symbol, dynamic>> screens = [\n''';
   generatedScreens.forEach((String annotation, Map<Symbol, dynamic> data) {
     if (data[#initial]) {
       content =
           '''import '${data[#uri]}';\n$content\n\t{#name: '$annotation', #screen: () => ${data[#className]}, #initial: ${data[#initial]}},''';
     } else {
-      content = '''import '${data[#uri]}';\n$content\n\t{#name: '$annotation', #screen: () => ${data[#className]}},''';
+      content =
+          '''import '${data[#uri]}';\n$content\n\t{#name: '$annotation', #screen: () => ${data[#className]}},''';
     }
   });
   content = '$content\n\n];';

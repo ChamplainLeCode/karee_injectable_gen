@@ -1,22 +1,29 @@
-A library for Dart developers.
-
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+This library is the generator for Karee projects
 
 ## Usage
 
-A simple usage example:
+A simple usage is:
 
-```dart
-import 'package:karee_injectable_gen/karee_injectable_gen.dart';
+- Add dependency
+```yaml
+    karee_injectable_gen: ^1.0.1
+```
 
-main() {
-  var awesome = new Awesome();
-}
+- Install Karee-CLI
+  
+  Github Repo:  [Karee-CLI](https://github.com/ChamplainLeCode/karee-cli.git)
+```bash
+    npm install -g karee
+```
+
+- Run the CLI command to generate sources
+
+```bash
+    karee source
 ```
 
 ## Features and bugs
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 
-[tracker]: http://example.com/issues/replaceme
+[tracker]: https://github.com/ChamplainLeCode/karee_injectable_gen/issues

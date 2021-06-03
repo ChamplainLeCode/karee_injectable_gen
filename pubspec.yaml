@@ -1,19 +1,18 @@
 name: karee_injectable_gen
 description: A starting point for Dart libraries or applications.
-# version: 1.0.0
-# homepage: https://www.example.com
+version: 1.0.1
+homepage: https://github.com/ChamplainLeCode/karee_injectable_gen.git
 
 environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  karee_inject: 
-    path: ../karee_inject
+  karee_inject: ^1.0.2
   build: '^2.0.0'
-  source_gen: 1.0.0
+  source_gen: ^1.0.0
+  analyzer: ^1.5.0
 
 dev_dependencies:
   pedantic: ^1.9.0
   test: ^1.14.4
   build_runner: any
-  analyzer: ^1.0.0
