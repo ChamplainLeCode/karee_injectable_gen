@@ -1,10 +1,62 @@
-const String kMainExtensionDirPath = 'lib/core/extensions';
+import 'package:karee_injectable_gen/karee_injectable_gen.dart'
+    show GENERATED_SUB_PATH;
+
+///
+/// constant for extensions base dir
+///
+final String kMainExtensionDirPath = 'lib${GENERATED_SUB_PATH}core/extensions';
+
+///
+/// constant for general extension file
+///
 const String kMainExtensionFileName = 'extensions.dart';
-const String kMainExtensionFilePath = 'lib/core/extensions/$kMainExtensionFileName';
+
+///
+/// constant that represents the path to the general extension file
+///
+/// see [kMainExtensionFileName]
+///
+final String kMainExtensionFilePath =
+    'lib${GENERATED_SUB_PATH}core/extensions/$kMainExtensionFileName';
+
+///
+/// constant for service extension base file
+///
 const String kServiceExtensionFileName = 'extensions_services.dart';
+
+///
+/// constant for service extension dir
+///
 const String kServiceExtensionDirPath = 'services';
-const String kServiceExtensionFilePath = '$kMainExtensionDirPath/$kServiceExtensionFileName';
+
+///
+/// constant that represents the path to service extension file
+///
+final String kServiceExtensionFilePath =
+    '$kMainExtensionDirPath/$kServiceExtensionFileName';
+
+///
+/// constant for controller extension base dir
+///
 const String kControllerExtensionDirPath = 'controllers';
+
+///
+/// constant for Controller Extension filename
+///
 const String kControllerExtensionFileName = 'extensions_controllers.dart';
-const String kControllerExtensionFilePath = '$kMainExtensionDirPath/$kControllerExtensionFileName';
-const String kKareeCorePackage = 'package:karee_core/core.dart';
+
+///
+/// constant that represent controller extension path
+///
+final String kControllerExtensionFilePath =
+    '$kMainExtensionDirPath/$kControllerExtensionFileName';
+
+///
+/// constant for representing the karee core package name
+///
+const String kKareeCorePackage = 'package:karee/core.dart';
+
+///
+/// constant for default file where screen metadata are generated
+///
+final String kKareeScreensFile = 'lib${GENERATED_SUB_PATH}core/screens.dart';

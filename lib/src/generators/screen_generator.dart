@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:karee_inject/karee_inject.dart';
+import 'package:karee_injectable_gen/karee_injectable_gen.dart'
+    show APPLICATION_NAME, GENERATED_SUB_PATH;
 import 'package:source_gen/source_gen.dart';
 
 ///
@@ -15,7 +17,8 @@ import 'package:source_gen/source_gen.dart';
 ///ScreenGenerator for Karee core Screen
 class ScreenGenerator extends GeneratorForAnnotation<Screen> {
   @override
-  dynamic generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) {
+  dynamic generateForAnnotatedElement(
+      Element element, ConstantReader annotation, BuildStep buildStep) {
     var source = element.metadata[0].toSource();
 
     var annotation = element.metadata.first.computeConstantValue();
@@ -23,13 +26,19 @@ class ScreenGenerator extends GeneratorForAnnotation<Screen> {
     generatedScreens.putIfAbsent(
         source.substring(source.indexOf('\'') + 1, source.lastIndexOf('\'')),
         () => {
-              #uri: element.source?.uri.toString(),
+              #uri: element.source?.uri
+                      .toString()
+                      // We prefer relative path to absolute path, then we replace the
+                      // package reference with the path to reach [lib/app]
+                      .replaceAll('package:$APPLICATION_NAME', '') ??
+                  '',
               #className: '${element.declaration?.name ?? ''}()',
               #initial: annotation?.getField('isInitial')?.toBoolValue()
             });
     writeMap();
   }
 
+  /// Function that converts string following Underscore notation
   String cambelToUnderscore([String name = '']) {
     var response = '';
     for (var index = 0; index < name.length; index++) {
@@ -43,13 +52,15 @@ class ScreenGenerator extends GeneratorForAnnotation<Screen> {
     return response;
   }
 
+  /// Function that converts string following cambel case notation
   String underscoreToCambel([String name = '']) {
     var response = '';
     for (var index = 0; index < name.length; index++) {
       var char = name[index];
       char = index == 0 && !isUpper(char) ? char.toUpperCase() : char;
       if (char == '_') {
-        response = response + (index + 1 < name.length ? name[index + 1].toUpperCase() : '');
+        response = response +
+            (index + 1 < name.length ? name[index + 1].toUpperCase() : '');
         index++;
       } else {
         response = response + char;
@@ -66,15 +77,19 @@ class ScreenGenerator extends GeneratorForAnnotation<Screen> {
 
 Map<String, Map<Symbol, dynamic>> generatedScreens = {};
 
+/// Function that is used to generate metadata for all annotated classes with
+/// @Screen
 void writeMap() async {
-  var f = File('lib/core/screens.dart');
-  var content = '''\n\n/// Generated buy Karee\n///\n///Do not modify\n\nList<Map<Symbol, dynamic>> screens = [\n''';
+  var f = File('lib${GENERATED_SUB_PATH}core/screens.dart');
+  var content =
+      '''\n\n/// Generated buy Karee\n///\n///Do not modify\n\nList<Map<Symbol, dynamic>> screens = [\n''';
   generatedScreens.forEach((String annotation, Map<Symbol, dynamic> data) {
     if (data[#initial]) {
       content =
           '''import '${data[#uri]}';\n$content\n\t{#name: '$annotation', #screen: () => ${data[#className]}, #initial: ${data[#initial]}},''';
     } else {
-      content = '''import '${data[#uri]}';\n$content\n\t{#name: '$annotation', #screen: () => ${data[#className]}},''';
+      content =
+          '''import '${data[#uri]}';\n$content\n\t{#name: '$annotation', #screen: () => ${data[#className]}},''';
     }
   });
   content = '$content\n\n];';
