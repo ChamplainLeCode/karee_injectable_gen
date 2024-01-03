@@ -5,7 +5,7 @@ import 'package:analyzer/dart/element/element.dart';
 import 'package:build/build.dart';
 import 'package:karee_inject/karee_inject.dart';
 import 'package:karee_injectable_gen/karee_injectable_gen.dart'
-    show APPLICATION_NAME, GENERATED_SUB_PATH;
+    show applicationName, generatedSubPath;
 import 'package:source_gen/source_gen.dart';
 
 ///
@@ -16,6 +16,7 @@ import 'package:source_gen/source_gen.dart';
 ///
 ///ScreenGenerator for Karee core Screen
 class ScreenGenerator extends GeneratorForAnnotation<Screen> {
+  
   @override
   dynamic generateForAnnotatedElement(
       Element element, ConstantReader annotation, BuildStep buildStep) {
@@ -30,7 +31,7 @@ class ScreenGenerator extends GeneratorForAnnotation<Screen> {
                       .toString()
                       // We prefer relative path to absolute path, then we replace the
                       // package reference with the path to reach [lib/app]
-                      .replaceAll('package:$APPLICATION_NAME', '') ??
+                      .replaceAll('package:$applicationName', '') ??
                   '',
               #className: '${element.declaration?.name ?? ''}()',
               #initial: annotation?.getField('isInitial')?.toBoolValue()
@@ -69,18 +70,20 @@ class ScreenGenerator extends GeneratorForAnnotation<Screen> {
     return response;
   }
 
+  /// Function that determines whether the char passed is an upper case char.
   bool isUpper([String char = '']) {
     if (char.isEmpty) return false;
     return char.codeUnitAt(0) >= 65 && char.codeUnitAt(0) <= 90;
   }
 }
 
+/// Math that contains a list of generated String.
 Map<String, Map<Symbol, dynamic>> generatedScreens = {};
 
 /// Function that is used to generate metadata for all annotated classes with
 /// @Screen
 void writeMap() async {
-  var f = File('lib${GENERATED_SUB_PATH}core/screens.dart');
+  var f = File('lib${generatedSubPath}core/screens.dart');
   var content =
       '''\n\n/// Generated buy Karee\n///\n///Do not modify\n\nList<Map<Symbol, dynamic>> screens = [\n''';
   generatedScreens.forEach((String annotation, Map<Symbol, dynamic> data) {

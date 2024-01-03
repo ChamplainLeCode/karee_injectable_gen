@@ -1,10 +1,10 @@
 import 'package:karee_injectable_gen/karee_injectable_gen.dart'
-    show GENERATED_SUB_PATH;
+    show generatedSubPath;
 
 ///
 /// constant for extensions base dir
 ///
-final String kMainExtensionDirPath = 'lib${GENERATED_SUB_PATH}core/extensions';
+final String kMainExtensionDirPath = 'lib${generatedSubPath}core/extensions';
 
 ///
 /// constant for general extension file
@@ -17,7 +17,7 @@ const String kMainExtensionFileName = 'extensions.dart';
 /// see [kMainExtensionFileName]
 ///
 final String kMainExtensionFilePath =
-    'lib${GENERATED_SUB_PATH}core/extensions/$kMainExtensionFileName';
+    'lib${generatedSubPath}core/extensions/$kMainExtensionFileName';
 
 ///
 /// constant for service extension base file
@@ -59,4 +59,4 @@ const String kKareeCorePackage = 'package:karee/core.dart';
 ///
 /// constant for default file where screen metadata are generated
 ///
-final String kKareeScreensFile = 'lib${GENERATED_SUB_PATH}core/screens.dart';
+final String kKareeScreensFile = 'lib${generatedSubPath}core/screens.dart';

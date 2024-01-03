@@ -17,17 +17,17 @@ bool _isModule() {
 
   if (f.existsSync()) {
     var entry = jsonDecode(f.readAsStringSync());
-    APPLICATION_NAME = entry['appName'];
+    applicationName = entry['appName'];
     return entry['config']['type'].toString().toLowerCase() == 'module';
   }
   return false;
 }
 
 /// Current project name
-late String APPLICATION_NAME;
+late String applicationName;
 
 /// Default path to reach where file will be generated.
 ///
 /// In case of an Application, it will be generate under lib/core but in case of
 /// module it will be generated under lib/src/core
-String GENERATED_SUB_PATH = _isModule() ? '/src/' : '/';
+String generatedSubPath = _isModule() ? '/src/' : '/';

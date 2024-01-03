@@ -1,7 +1,6 @@
 name: karee_injectable_gen
 description: This library is the Karee generator lib, it's used to generate source code according to Karee's project need.
-version: 1.0.2
-homepage: https://github.com/ChamplainLeCode/karee_injectable_gen
+version: 1.0.2+1
 repository: https://github.com/ChamplainLeCode/karee_injectable_gen
 issue_tracker: https://github.com/ChamplainLeCode/karee_injectable_gen/issues
 report_issue: https://github.com/ChamplainLeCode/karee_injectable_gen/issues/new
@@ -10,10 +9,10 @@ environment:
   sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
-  karee_inject: ^1.0.3
+  karee_inject: ^1.0.3+2
   build: '^2.0.0'
-  source_gen: ^1.0.0
-  analyzer: ^1.0.0
+  source_gen: ^1.0.3
+  analyzer: ^1.7.2
 
 dev_dependencies:
   pedantic: ^1.9.0

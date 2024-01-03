@@ -32,7 +32,7 @@ class ControllerGenerator
                 .toString()
                 // We prefer relative path to absolute path, then we replace the
                 // package reference with the path to reach [lib/app]
-                .replaceAll('package:$APPLICATION_NAME', '') ??
+                .replaceAll('package:$applicationName', '') ??
             '');
     writeExtensionIndex(ext);
   }
