@@ -20,6 +20,7 @@ class Field {
   /// Field uri
   String uri;
 
+  /// Constructor
   Field(
       {required this.name,
       required this.uri,
