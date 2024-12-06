@@ -2,8 +2,10 @@
 class FieldError implements Exception {
   /// The name of the field
   String field;
+
   /// the full path to class that contains the error
   String uri;
+
   /// The message of this error.
   late final String message;
 

@@ -58,4 +58,7 @@ class ServiceExtension {
         serviceClassName == other.serviceClassName;
     return test;
   }
+
+  @override
+  int get hashCode => super.hashCode;
 }

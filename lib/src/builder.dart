@@ -55,7 +55,6 @@ Builder persistableBuilder(BuilderOptions options) =>
 /// This is the builder entry point for @Screen Annotation
 ///
 Builder screenBuilder(BuilderOptions options) {
-
   ///
   /// in case where no screen has been annotated, we'll create empty file
   ///
@@ -88,12 +87,16 @@ class VisitableElement extends SimpleElementVisitor {
 
   /// The full path to the class.
   late String uri;
+
   /// The annotation name.
   String? meta;
+
   /// The list of fields of this class.
   List<Field> fields = <Field>[];
+
   /// The list of annotations to managed.
   List metaData = [];
+
   /// The map of the constructors of this class managed.
   Map<String, dynamic> constructors = {};
 

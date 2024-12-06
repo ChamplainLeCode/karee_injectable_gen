@@ -16,7 +16,6 @@ import 'package:source_gen/source_gen.dart';
 ///
 ///ScreenGenerator for Karee core Screen
 class ScreenGenerator extends GeneratorForAnnotation<Screen> {
-  
   @override
   dynamic generateForAnnotatedElement(
       Element element, ConstantReader annotation, BuildStep buildStep) {

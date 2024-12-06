@@ -1,5 +1,8 @@
+## 1.0.3
+ - Update to flutter 3
+
 ## 1.0.2+1
- - Update documentation
+- Update documentation
 
 ## 1.0.2
 - Adding generator for module
