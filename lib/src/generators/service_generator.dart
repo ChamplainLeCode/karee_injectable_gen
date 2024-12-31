@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:build/src/builder/build_step.dart';
+import 'package:build/build.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:karee_injectable_gen/karee_injectable_gen.dart';
 import 'package:karee_injectable_gen/src/errors/field_error_structure.dart';
@@ -46,7 +46,7 @@ class ServiceGenerator extends GeneratorForAnnotation<ServiceAnnotation> {
     extensions.add(ext);
 
     var dir = Directory('$kMainExtensionDirPath/$kServiceExtensionDirPath');
-    var file = File('$kServiceExtensionFilePath');
+    var file = File(kServiceExtensionFilePath);
     if (dir.existsSync()) {
       dir.deleteSync(recursive: true);
     }

@@ -53,12 +53,10 @@ class ServiceExtension {
   }
 
   @override
+  // ignore: hash_and_equals
   bool operator ==(Object other) {
     var test = (other is ServiceExtension) &&
         serviceClassName == other.serviceClassName;
     return test;
   }
-
-  @override
-  int get hashCode => super.hashCode;
 }
