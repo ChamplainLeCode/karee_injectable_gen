@@ -1,14 +1,22 @@
 # Defines a default set of lint rules enforced for
 # projects at Google. For details and rationale,
 # see https://github.com/dart-lang/pedantic#enabled-lints.
-include: package:pedantic/analysis_options.yaml
+include: package:lints/recommended.yaml
 
 # For lint rules and documentation, see http://dart-lang.github.io/linter/lints.
 # Uncomment to specify additional rules.
-# linter:
-#   rules:
-#     - camel_case_types
+linter: 
+  rules:
+    prefer_const_literals_to_create_immutables: false
+    prefer_const_constructors: false
+    use_key_in_widget_constructors: false
+    prefer_const_constructors_in_immutables: false
+    avoid_returning_null_for_void: true
+    avoid_print: true
 
 analyzer:
+  errors:
+    empty_catches: ignore
+    avoid_function_literals_in_foreach_calls: ignore
 #   exclude:
 #     - path/to/excluded/files/**

@@ -1,11 +1,26 @@
+///
+/// Model use to get metadata on field
+///
 class Field {
+  /// field name
   String name;
+
+  /// Field visibility
   bool isPublic;
+
+  /// Field Data type
   String type;
+
+  /// Whether Field  is injectable via @Autowired
   bool injectable;
+
+  /// Field value
   String? value;
+
+  /// Field uri
   String uri;
 
+  /// Constructor
   Field(
       {required this.name,
       required this.uri,
@@ -15,5 +30,6 @@ class Field {
       required this.isPublic});
 
   @override
-  String toString() => {name, type, value, uri, injectable, isPublic}.toString();
+  String toString() =>
+      {name, type, value, uri, injectable, isPublic}.toString();
 }

@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:build/src/builder/build_step.dart';
+import 'package:build/build.dart';
 import 'package:analyzer/dart/element/element.dart';
 import 'package:karee_injectable_gen/karee_injectable_gen.dart';
 import 'package:karee_injectable_gen/src/errors/field_error_structure.dart';
@@ -10,37 +10,17 @@ import 'package:karee_injectable_gen/src/models/service_extension.dart';
 import 'package:karee_injectable_gen/src/validators/field_validator.dart';
 import 'package:source_gen/source_gen.dart';
 import 'package:karee_inject/karee_inject.dart' show ControllerReflectable;
-import '../builder.dart' show VisitableElement;
 
-class ControllerGenerator extends GeneratorForAnnotation<ControllerReflectable> {
+/// Generator class for controller
+class ControllerGenerator
+    extends GeneratorForAnnotation<ControllerReflectable> {
   Set<ServiceExtension> extensions = {};
 
   @override
-  void generateForAnnotatedElement(Element element, ConstantReader annotation, BuildStep buildStep) {
-    // print('\n\n\n#### GENERATOR FOR Controller ----- begin\n\n\n');
-    // print({
-    //   #name: element.declaration?.name,
-    //   #uri: element.source?.uri.toString(),
-    //   #file: element.declaration?.getDisplayString(withNullability: false)
-    // });
-    // var dir = Directory('$kMainExtensionDirPath/$kControllerExtensionDirPath');
-    // var file = File('$kControllerExtensionFilePath');
-    // if (dir.existsSync()) {
-    //   dir.deleteSync(recursive: true);
-    // }
-    // if (file.existsSync()) {
-    //   file.deleteSync(recursive: true);
-    // }
+  void generateForAnnotatedElement(
+      Element element, ConstantReader annotation, BuildStep buildStep) {
     var visitor = VisitableElement();
     element.visitChildren(visitor);
-    // print('\n~~~~~~~~~~~~~ Controller << ${visitor.className} ~~~~~~~~~');
-    // print('\n## fields: ${visitor.fields.map((e) => e.toString())}\n');
-    // print('\n## constr: ${visitor.constructors}');
-    // print('\n## uri   : ${visitor.uri}');
-    // print('\n## meta  : ${visitor.meta} metaData = ${visitor.metaData}');
-
-    // print('\n\n\n#### GENERATOR FOR Controller ----- end\n\n\n');
-
     FieldValidator.validateMultipleFields(visitor.fields);
 
     var ext = ServiceExtension(
@@ -48,10 +28,16 @@ class ControllerGenerator extends GeneratorForAnnotation<ControllerReflectable> 
         fields: visitor.fields,
         fileName: element.source?.shortName ?? '',
         serviceClassName: element.declaration?.name ?? '',
-        uri: element.source?.uri.toString() ?? '');
+        uri: element.source?.uri
+                .toString()
+                // We prefer relative path to absolute path, then we replace the
+                // package reference with the path to reach [lib/app]
+                .replaceAll('package:$applicationName', '') ??
+            '');
     writeExtensionIndex(ext);
   }
 
+  ///  Function used to add the extension to general controller extension file
   void writeExtensionIndex(ServiceExtension ext) {
     if (extensions.where((e) => e == ext).isNotEmpty) {
       return;
@@ -59,7 +45,7 @@ class ControllerGenerator extends GeneratorForAnnotation<ControllerReflectable> 
 
     extensions.add(ext);
     var dir = Directory('$kMainExtensionDirPath/$kControllerExtensionDirPath');
-    var file = File('$kControllerExtensionFilePath');
+    var file = File(kControllerExtensionFilePath);
     if (dir.existsSync()) {
       dir.deleteSync(recursive: true);
     }
@@ -67,8 +53,9 @@ class ControllerGenerator extends GeneratorForAnnotation<ControllerReflectable> 
       file.deleteSync(recursive: true);
     }
 
-    Directory('$kMainExtensionDirPath').createSync(recursive: true);
-    Directory('$kMainExtensionDirPath/$kControllerExtensionDirPath').createSync(recursive: true);
+    Directory(kMainExtensionDirPath).createSync(recursive: true);
+    Directory('$kMainExtensionDirPath/$kControllerExtensionDirPath')
+        .createSync(recursive: true);
 
     var f = File(kControllerExtensionFilePath);
 
@@ -76,7 +63,8 @@ class ControllerGenerator extends GeneratorForAnnotation<ControllerReflectable> 
         '''Set<dynamic> controllers = {\n''';
     var space = 0;
     extensions.forEach((e) {
-      content = '''import '$kControllerExtensionDirPath/extension_${e.fileName}' as e$space;\n'''
+      content =
+          '''import '$kControllerExtensionDirPath/extension_${e.fileName}' as e$space;\n'''
           '''$content'''
           '''\te$space.\$extended${e.serviceClassName},\n''';
       space++;
@@ -87,9 +75,10 @@ class ControllerGenerator extends GeneratorForAnnotation<ControllerReflectable> 
     extensions.forEach((e) => writeExtentionForService(e));
   }
 
+  /// function used to generate extension for a specific controller from metadata
   void writeExtentionForService(ServiceExtension ext) {
-    // print(ext);
-    var f = File('$kMainExtensionDirPath/$kControllerExtensionDirPath/extension_${ext.fileName}');
+    var f = File(
+        '$kMainExtensionDirPath/$kControllerExtensionDirPath/extension_${ext.fileName}');
 
     var content = '''import '${ext.uri}';\n\n'''
         '''/// Generated by Karee \n\n'''
@@ -97,7 +86,9 @@ class ControllerGenerator extends GeneratorForAnnotation<ControllerReflectable> 
         '''\tstatic late final ${ext.serviceClassName}? service;\n'''
         '''\tstatic bool loaded = false;\n'''
         '''\tvoid init(){''';
-    var valueFields = ext.fields.where((field) => field.isPublic && (field.value != null)).toList();
+    var valueFields = ext.fields
+        .where((field) => field.isPublic && (field.value != null))
+        .toList();
     if (valueFields.isNotEmpty) {
       content = '''import '$kKareeCorePackage';\n'''
           '''$content''';
@@ -114,8 +105,10 @@ class ControllerGenerator extends GeneratorForAnnotation<ControllerReflectable> 
         '''\t\t${ext.serviceClassName}Extension.loaded = true;''';
 
     /// Because injectable fields through Autowired are only Services, we can
-    /// insure that typer of current field will be in `extensions` (ServiceExtension)
-    var autowiredFields = ext.fields.where((field) => field.isPublic && field.injectable).toList();
+    /// insure that type of current field will be in `extensions` (ServiceExtension)
+    var autowiredFields = ext.fields
+        .where((field) => field.isPublic && field.injectable)
+        .toList();
 
     if (autowiredFields.isNotEmpty) {
       content = '''import '../$kServiceExtensionFileName';\n'''
@@ -142,6 +135,8 @@ class ControllerGenerator extends GeneratorForAnnotation<ControllerReflectable> 
     f.writeAsStringSync(content, mode: FileMode.write);
   }
 
+  /// function used to get via data type conversion the value when reading the
+  /// application config file
   dynamic getInitialValueForField(Field f) {
     if (f.injectable) {
       return "serviceExtensions['${f.type}']()";
